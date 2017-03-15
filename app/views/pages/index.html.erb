@@ -1,0 +1,36 @@
+
+
+<div id="demo"></div>
+
+<button onclick="getLocation()">Try it</button>
+<div>
+	<p> la direccion corresponde a: <span id="direccion"></span></p>
+</div>
+<a href="javascript:void(0)" id="addres_link">Buscar direccion</a>
+<script>
+	var x = document.getElementById("demo");
+	
+	 function getLocation() {
+		if (navigator.geolocation) { navigator.geolocation.getCurrentPosition(showPosition);
+		} else {
+			x.innerHTML = "Geolocation is not supported by this browser.";
+		}
+	 }
+		function showPosition(position) {
+			x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+			$.ajax({
+				url: '<%=pages_direccion_path%>',
+				type: 'POST',
+				dataType: ' script',
+				data: {
+					latitude: position.coords.latitude,
+					longitude: position.coords.longitude
+				}
+			});
+			
+		}
+	   
+ </script>
+
+
+
